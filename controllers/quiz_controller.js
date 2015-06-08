@@ -17,14 +17,11 @@ exports.index = function(req, res){
   models.Quiz.findAll().then(function(quizes){
     res.render('quizes/index', {quizes: quizes});
   }).catch(function(error) { next(error);})
-  models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
-    res.render('quizes/search', {search: req.search});
-  })
 };
 
 // GET /quizes?search
 exports.search = function(req, res){
-  models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
+  models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(search){
     res.render('quizes/search', {search: req.search});
   })
 };
