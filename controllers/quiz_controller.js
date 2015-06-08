@@ -21,7 +21,7 @@ exports.index = function(req, res){
 
 // GET /quizes?search
 exports.search = function(req, res){
-  models.Quiz.findAll({where: ["pregunta like ?", %search%]}).then(function(quizes){
+  models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
     res.render('quizes/search', {search: req.search});
   })
 };
