@@ -14,10 +14,10 @@ exports.load = function(req, res, next, quizId) {
 
 // GET /quizes
 exports.index = function(req, res){
-  searchText = req.query.searchText||"";
-  searchText = searchText.trim();
-  searchText = (searchText == "")? searchText: "%" + searchText + "%";
-   models.Quiz.findAll({where: ["pregunta like ?", searchText]}).then(function(quizes){
+  search = req.query.search||"";
+  search = search.trim();
+  search = (search == "")? search: "%" + search + "%";
+   models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
     res.render('quizes/index', {quizes: quizes});
   }).catch(function(error) { next(error);})
 };
