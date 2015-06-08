@@ -19,6 +19,13 @@ exports.index = function(req, res){
   }).catch(function(error) { next(error);})
 };
 
+// GET /quizes?search
+exports.search = function(req, res){
+  models.Quiz.findAll({where: ["pregunta like ?", %search%]}).then(function(quizes){
+    res.render('quizes/search', {search: req.search});
+  })
+};
+
 // GET /quizes/:id
 exports.show = function(req, res){
   res.render('quizes/show', { quiz: req.quiz});
