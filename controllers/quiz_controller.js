@@ -1,10 +1,10 @@
 var models = require('../models/models.js');
 
 // Autoload - factoriza el código si ruta incluye :quizId
-exports.load = function(req, res, next, quizId) {
+exports.load = function(req, res, next, quizId){
   models.Quiz.find(quizId).then(
-    function(quiz) {
-      if (quiz) {
+    function(quiz){
+      if (quiz){
         req.quiz = quiz;
         next();
       } else { next(new Error('No existe quizId=' + quizId)); }
@@ -43,12 +43,12 @@ exports.create = function (req, res){
   .then(function (err){
     if (err){
       res.render('quizes/new', {quiz: quiz, errors: err.errors});
-    }else
+    }else{
       quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
         res.redirect('/quizes');
-      })
+      });
     }
-  );
+  });
 };
 
 // GET /quizes/:id/answer
@@ -58,4 +58,26 @@ exports.answer = function(req, res){
     resultado = 'Correcto';
   }
   res.render('quizes/answer', {quiz: req.quiz, respuesta: resultado, errors: []});
+};
+
+// GET /quizes/:id/edit
+exports.edit = function(req, res){
+  var quiz = req.quiz;
+  res.render('quizes/edit', {quiz: quiz, errors: []});
+};
+
+// PUT /quizes/:id
+exports.update = function(req, res){
+  req.quiz.pregunta = req.body.quiz.pregunta;
+  req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.validate()
+  .then(function (err){
+    if (err){
+      res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
+    }else {
+      req.quiz.save( {fields: ["pregunta", "respuesta"]}).then( function(){
+        res.redirect('/quizes');
+      });
+    }
+  });
 };
