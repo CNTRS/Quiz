@@ -34,7 +34,7 @@ var Quiz = sequelize.import(quiz_path);
 var comment_path = path.join(__dirname, 'comment');
 var Comment = sequelize.import(comment_path);
 
-Coment.belongsTo(Quiz);
+Comment.belongsTo(Quiz);
 Quiz.hasMany(Comment);
 
 exports.Quiz = Quiz; // exportar tabla Quiz
