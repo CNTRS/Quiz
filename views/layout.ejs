@@ -16,11 +16,17 @@
 <body>
 <div id="page-wrap">
   <header class="main" id="h1">
-    <%if(!session.user){%>
-      <span class="right"><a href="/login">Login</a></span>
-    <%}else{%>
-      <span class="right"> <%=session.user.username%> <a href="/logout">Logout</a></span>
-    <%}%>
+    <div align="right">
+      <% if(!session.user){ %>
+        <span class="right"><a href="/login">Login</a></span>
+      <% }else{%>
+        <span class="right"> <% if(session.user.id===1) { %>
+                                  admin
+                             <% }else if(session.user.id===2) { %>
+                                  pepe
+                             <% } %><a href="/logout">Logout</a></span>
+      <% } %>
+    </div>
     <h2>Quiz<span>: el juego de las preguntas</span></h2>
   </header>
 

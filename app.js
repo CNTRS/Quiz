@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     //guardar path en session.redir para despues del login
     if (!req.path.match(/\/login|\/logout/)){
-        req.sesion.redir = req.path;
+        req.session.redir = req.path;
     }
     //Hacer visible req.session en las vistas
     res.locals.session = req.session;
