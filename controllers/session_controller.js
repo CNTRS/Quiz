@@ -4,6 +4,14 @@ exports.new = function(req, res){
 	res.render('sessions/new', {errors: errors});
 };
 
+exports.loginRequired = function (req, res, next){
+	if (req.session.user){
+		next();
+	}else {
+		res.redirect('/login');
+	}
+};
+
 exports.create = function(req, res){
 	var login = req.body.login;
 	var password = req.body.password;
