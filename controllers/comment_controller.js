@@ -1,4 +1,5 @@
 var models = require('../models/models.js');
+var path = require("path");
 
 // Autoload :id de comentarios
 exports.load = function(req, res, next, commentId){
@@ -41,7 +42,11 @@ exports.create = function(req, res) {
 // GET /quizes/:quizId/comments/:commentId/publish
 exports.publish = function(req, res){
   req.comment.publicado = true;
+  var redir = req.originalUrl;
+  redir = redir.split("/");
+  var redirPath = redir[(redir.indexOf("quizes")+1)];
+  
   req.comment.save({fields: ["publicado"]})
-  .then(function(){res.redirect('/quizes/' + req.params.quizId);})
+  .then(function(){res.redirect('/quizes/'+redirPath);})
   .catch(function(error){next(error)});
 };

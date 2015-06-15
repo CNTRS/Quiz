@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
 });
 // Autoload de comandos con :quizId
 router.param('quizId', quizController.load);  // autoload :quizId
-router.param('commentId', commentController.load) //autoload :commentId
+router.param('commentId', commentController.load); //autoload :commentId
 
 // Definición de rutas de /session
 router.get('/login', sessionController.new);
